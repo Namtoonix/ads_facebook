@@ -1,0 +1,39 @@
+.nav-container {
+  background: #0b3d88;
+  width: 240px;
+  align-items: center;
+  height: 100vh;
+  .navbar-brand {
+    width: 100%;
+    display: block;
+    padding-top: 16px;
+    padding-left: 20px;
+  }
+  .nav-item {
+    .nav-link {
+      img {
+        width: 14px;
+        height: 14px;
+        margin-right: 13px;
+      }
+      span {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        align-items: center;
+        text-transform: capitalize;
+        color: #7790b6;
+      }
+    }
+    .submenu {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+    }
+  }
+  li {
+    list-style-type: none;
+  }
+}
