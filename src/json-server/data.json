@@ -1,0 +1,73 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "title": "Quản lý tồn kho",
+      "icon": "../../assets/Icon-Facebook/icon1.png"
+    },
+    {
+      "id": 2,
+      "title": "Báo cáo",
+      "icon": "../../assets/Icon-Facebook/icon2.png"
+    },
+    {
+      "id": 3,
+      "title": "Khuyến mãi",
+      "icon": "../../assets/Icon-Facebook/icon3.png"
+    },
+    {
+      "id": 4,
+      "title": "Ứng dụng",
+      "icon": "../../assets/Icon-Facebook/icon4.png"
+    },
+    {
+      "id": 5,
+      "title": "Hara loyalty",
+      "icon": "../../assets/Icon-Facebook/icon5.png"
+    },
+    {
+      "id": 6,
+      "title": "KÊNH MARKETING",
+      "icon": "../../assets/Icon-Facebook/icon6.png",
+      "sub-menu": [
+        {
+          "id": 7,
+          "title": "Google Ads",
+          "icon": "../../assets/Icon-Facebook/icon7.png"
+        },
+        {
+          "id": 8,
+          "title": "Facebook Dynamic Ads",
+          "icon": "../../assets/Icon-Facebook/icon8.png",
+          "sub-menu": [
+            {
+              "id": 9,
+              "title": "Quản lý quảng cáo",
+              "link": "/quan-ly-quang-cao"
+            },
+            {
+              "id": 10,
+              "title": "Báo cáo",
+              "link": "/bao-cao"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "KÊNH BÁN HÀNG",
+      "icon": "../../assets/Icon-Facebook/icon6.png"
+    },
+    {
+      "id": 12,
+      "title": "Cấu hình",
+      "icon": "../../assets/Icon-Facebook/icon12.png"
+    },
+    {
+      "id": 13,
+      "title": "Góp ý",
+      "icon": "../../assets/Icon-Facebook/icon13.png"
+    }
+  ]
+}
