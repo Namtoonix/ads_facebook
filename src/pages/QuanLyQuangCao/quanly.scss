@@ -1,0 +1,68 @@
+.intro {
+  display: flex;
+  padding: 0 24px;
+  align-items: center;
+  height: calc(100vh - 60px);
+  img {
+    width: 50%;
+  }
+  .form-confirm {
+    width: 50%;
+    h2 {
+      font-weight: 400;
+      font-size: 44px;
+      line-height: 128%;
+      color: #212121;
+    }
+    span {
+      font-size: 14px;
+      a {
+        text-decoration: none;
+        color: #0b3d88;
+        font-weight: 500;
+      }
+    }
+    button {
+      width: 132px;
+      height: 40px;
+      background: #1f58eb;
+      border-radius: 4px;
+      color: #fff;
+      border: none;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+  }
+}
+.form-login {
+  width: 50%;
+  h2 {
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 128%;
+    color: #212121;
+  }
+  span {
+    a {
+      text-decoration: none;
+      color: #0b3d88;
+      font-weight: 500;
+    }
+  }
+  button {
+    background: #1f58eb;
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+  }
+  .firebaseui-container {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0px;
+    .firebaseui-card-content, .firebaseui-card-footer {
+      padding: 0px;
+    }
+  }
+}

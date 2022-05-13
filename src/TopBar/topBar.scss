@@ -1,0 +1,93 @@
+.topbar {
+  background: #e5e5e5;
+  position: fixed;
+  left: 320px;
+  top: 0px;
+  right: 0;
+  display: flex;
+  padding: 0 20px;
+  .topbar-left,
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    a {
+      font-size: 14px;
+      line-height: 60px;
+      text-decoration: none;
+      color: #000;
+      display: block;
+      margin: 0 4px;
+      &:first-child {
+        color: #9e9e9e;
+      }
+    }
+    button {
+      border: none;
+      background: none;
+      position: relative;
+      &:hover span {
+        display: block;
+      }
+      span {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+      }
+    }
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .noity {
+        position: relative;
+        .dot {
+          position: absolute;
+          bottom: 80%;
+          left: 80%;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: red;
+        }
+      }
+      & > div {
+        margin: 0 12px;
+        height: 20px;
+      }
+    }
+    .account {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      border-left: 2px solid #ccc;
+      p.account-name {
+        margin-left: 24px;
+        color: #0B3D88;
+        font-weight: 500;
+      }
+      img {
+        margin: 0 12px;
+        &.account-avatar {
+          width: 40px;
+          height: 40px;
+        }
+        &.account-app {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  .topbar-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
