@@ -1,4 +1,3 @@
-
 {
   "menu": [
     {
@@ -78,6 +77,23 @@
       "title": "Góp ý",
       "icon": "icon13",
       "link": "/gop-y"
+    }
+  ],
+  "step": [
+    {
+      "id": 1,
+      "content": "Tạo tài khoản trình quản lý kinh doanh",
+      "status": "waitting"
+    },
+    {
+      "id": 2,
+      "content": "Kết nối Fanpage",
+      "status": "waitting"
+    },
+    {
+      "id": 3,
+      "content": "Tạo tài khoản quảng cáo",
+      "status": "waitting"
     }
   ]
 }

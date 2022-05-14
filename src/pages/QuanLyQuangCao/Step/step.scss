@@ -1,0 +1,53 @@
+.step-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-left: 0px;
+  z-index: 2;
+  .step-item {
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
+    position: relative;
+    z-index: 3;
+    button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #6d7175;
+      padding: 0;
+      font-weight: 400;
+      font-size: 18px;
+      color: #6d7175;
+    }
+    p {
+      text-align: center;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      color: #6d7175;
+    }
+    &.active {
+      button {
+        color: #fff;
+        background-color: #042659;
+        border-color: #042659;
+      }
+      p {
+        color: #042659;
+      }
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(660px - 220px - 32px);
+    border-bottom: 2px dashed #6d7175;
+    z-index: 0;
+  }
+}

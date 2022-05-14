@@ -29,7 +29,7 @@ function LoginFB(props) {
   }, []);
 
   if (isSignedIn) {
-    window.location.href = "/quan-ly-quang-cao/creat-account-step-1";
+    window.location.href = "/quan-ly-quang-cao/creat-account";
   }
 
   return (

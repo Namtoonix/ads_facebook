@@ -1,14 +1,16 @@
 const { createSlice } = require('@reduxjs/toolkit');
 
+const dataStep = JSON.parse(localStorage.getItem('step')) ? JSON.parse(localStorage.getItem('step')) : 1;
 const checkStepSlice = createSlice({
   name: 'check_step',
-  initialState: {},
+  initialState: dataStep,
   reducers: {
     onCheckStep(state, actions) {
-      const data = actions.payload;
-      if (!data) return;
-      return { data };
-    },
+      const step = actions.payload;
+      if (!step) return;
+      localStorage.setItem('step', JSON.stringify(step));
+      return(step)
+    }
   },
 });
 
