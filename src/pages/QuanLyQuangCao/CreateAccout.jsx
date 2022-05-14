@@ -13,10 +13,11 @@ CreateAccout.propTypes = {
 function CreateAccout(props) {
   const { stepList } = props;
   const step = useSelector((state) => state.checkStep);
+  const stepCompleted = useSelector((state) => state.stepCompleted);
 
   const handleShowStep = (stepList) => {
     if (!stepList) return;
-    return stepList.map((step, index) => <Step key={index} step={step} />);
+    return stepList.map((step, index) => <Step key={index} step={step} stepCompleted={stepCompleted}/>);
   };
 
   const handleShowContentStep = (step) => {

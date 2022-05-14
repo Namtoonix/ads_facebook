@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { accountData } from "../../../feature/accountSlice/accountSlice";
 import icon_error from "../../../assets/Icon-Facebook/error.png";
 import icon_reload from "../../../assets/Icon-Facebook/reload.png";
+import { accountData } from "../../../feature/accountSlice/accountSlice";
+import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
 import "./step3.scss";
-import { onCheckStep } from "../../../feature/checkStep/checkStepSlice";
 
 Step3Page.propTypes = {};
 
 function Step3Page(props) {
   const account = useSelector((state) => state.account);
+  const stepCompleted = useSelector((state) => state.stepCompleted);
   const [select, setSelect] = useState(() => {
     if (account.nick) {
       if (account.nick.id !== undefined) {
@@ -33,9 +34,9 @@ function Step3Page(props) {
   const handleShowOption = (optionPages) => {
     if (isShowSelect) {
       return optionPages.map((option, index) => (
-        <div key={index} className="select-item">
+        <div key={index} className={"select-item " + (select === option.id ? "active" : "")}>
           <label>
-            {option.title} <br></br> ID: {option.avatar}
+            {option.title} <br></br><span>ID: <span>{option.avatar}</span></span> 
           </label>
           <input
             type="checkbox"
@@ -64,10 +65,13 @@ function Step3Page(props) {
       ...account,
       nick: nick,
     };
-    console.log(data);
-    const actions2 = accountData(data);
+    const newStepCompleted = [
+        ...stepCompleted, 3
+      ]
+      const actions2 = accountData(data);
+      const actions3 = onStepCompleted(newStepCompleted);
     dispatch(actions2);
-    window.location.href = "/quan-ly-quang-cao/chien-dich-quang-cao";
+    dispatch(actions3);
   };
 
   return (

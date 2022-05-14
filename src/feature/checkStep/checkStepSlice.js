@@ -1,4 +1,4 @@
-const { createSlice } = require('@reduxjs/toolkit');
+import { createSlice } from '@reduxjs/toolkit';
 
 const dataStep = JSON.parse(localStorage.getItem('step')) ? JSON.parse(localStorage.getItem('step')) : 1;
 const checkStepSlice = createSlice({

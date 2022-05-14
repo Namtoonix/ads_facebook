@@ -1,9 +1,11 @@
 import accountSlice from '../feature/accountSlice/accountSlice';
 import checkStepSlice from '../feature/checkStep/checkStepSlice';
-const { configureStore } = require('@reduxjs/toolkit');
+import stepCompletedSlice from '../feature/checkStep/stepCompletedSlice';
+import { configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = {
   checkStep: checkStepSlice,
+  stepCompleted: stepCompletedSlice,
   account: accountSlice,
 };
 

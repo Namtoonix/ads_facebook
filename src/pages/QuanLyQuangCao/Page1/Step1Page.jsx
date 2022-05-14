@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { onCheckStep } from "../../../feature/checkStep/checkStepSlice";
 import { accountData } from "../../../feature/accountSlice/accountSlice";
 import "./step1.scss";
+import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
 
 Step1Page.propTypes = {};
 
 function Step1Page(props) {
   const account = useSelector((state) => state.account);
+  const stepCompleted = useSelector((state) => state.stepCompleted);
   const [name, setName] = useState(account.name ? account.name : "");
   const dispatch = useDispatch();
 
@@ -17,9 +19,14 @@ function Step1Page(props) {
       ...account,
       name: name,
     };
+    const newStepCompleted = [
+      ...stepCompleted, 1
+    ]
     const actions2 = accountData(data);
+    const actions3 = onStepCompleted(newStepCompleted);
     dispatch(actions1);
     dispatch(actions2);
+    dispatch(actions3);
   };
 
   return (

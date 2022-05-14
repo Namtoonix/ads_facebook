@@ -21,6 +21,15 @@
       font-weight: 400;
       font-size: 18px;
       color: #6d7175;
+      position: relative;
+      img {
+        display: none;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        width: 32px;
+        height: 32px;
+      }
     }
     p {
       text-align: center;
@@ -37,6 +46,12 @@
       }
       p {
         color: #042659;
+      }
+    }
+    
+    &.completed button {
+      img {
+        display: block;
       }
     }
   }

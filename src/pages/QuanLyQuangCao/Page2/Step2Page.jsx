@@ -6,11 +6,13 @@ import { arrAvatar } from "./imporAvata";
 import icon_error from "../../../assets/Icon-Facebook/error.png";
 import icon_reload from "../../../assets/Icon-Facebook/reload.png";
 import "./step2.scss";
+import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
 
 Step2Page.propTypes = {};
 
 function Step2Page(props) {
   const account = useSelector((state) => state.account);
+  const stepCompleted = useSelector((state) => state.stepCompleted);
   const [select, setSelect] = useState(() => {
     if (account.page) {
       if (account.page.id !== undefined) {
@@ -34,7 +36,7 @@ function Step2Page(props) {
   const handleShowOption = (optionPages) => {
     if (isShowSelect) {
       return optionPages.map((option, index) => (
-        <div key={index} className="select-item">
+        <div key={index} className={"select-item " + (select === option.id ? "active" : "")}>
           <img src={arrAvatar[option.avatar]} alt="" />
           <label>{option.title}</label>
           <input
@@ -65,10 +67,14 @@ function Step2Page(props) {
       ...account,
       page: page,
     };
-    console.log(data);
+    const newStepCompleted = [
+      ...stepCompleted, 2
+    ]
     const actions2 = accountData(data);
+    const actions3 = onStepCompleted(newStepCompleted);
     dispatch(actions1);
     dispatch(actions2);
+    dispatch(actions3);
   };
 
   return (
