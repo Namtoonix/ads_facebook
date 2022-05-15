@@ -1,6 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { Switch } from "antd";
+import PropTypes from "prop-types";
+import React from "react";
+import Status from "./Status";
 
 Campaign.propTypes = {
   currentItems: PropTypes.array.isRequired,
@@ -27,9 +28,11 @@ function Campaign(props) {
         {handleShowLocal(item.local)}
       </li>
       <li>
-        {item.dayStart} - {item.dayEnd}
+        {item.dayStart.split("-").reverse().join("/")} -{" "}
+        {item.dayEnd.split("-").reverse().join("/")}
       </li>
       <li>{item.budget} đ</li>
+      <Status start={item.dayStart} end={item.dayEnd} />
     </ul>
   ));
 }

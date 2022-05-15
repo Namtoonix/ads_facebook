@@ -183,7 +183,7 @@ function Step1Page2(props) {
               <label htmlFor="sex">Giới tính</label>
               <Select
                 id="sex"
-                defaultValue={options[1]}
+                defaultValue={options[0]}
                 onChange={(e) =>
                   setCampaign({
                     ...campaign,

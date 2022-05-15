@@ -79,6 +79,48 @@
         margin-left: unset;
         margin-right: unset;
         line-height: 1.4;
+        &.status {
+          display: flex;
+          align-items: center;
+          &.isWaitting {
+            & > div {
+              background-color: #2962ff;
+            }
+            span {
+              color: #2962ff;
+            }
+          }
+          &.isCompleted {
+            & > div {
+              background-color: #cc3300;
+            }
+            span {
+              color: #cc3300;
+            }
+          }
+          span {
+            margin-left: 8px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: #1eb842;
+          }
+          div {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #1eb842;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            div {
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: #fff;
+            }
+          }
+        }
         &.local-item {
           button {
             background: #f0f5fa;
