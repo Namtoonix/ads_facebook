@@ -24,7 +24,6 @@ const campaignAdsSlice = createSlice({
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(addDataToServer.fulfilled, (state, action) => {
-
         })
       },
 });

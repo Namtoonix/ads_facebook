@@ -9,8 +9,12 @@ Campaign.propTypes = {
 function Campaign(props) {
   const { currentItems } = props;
 
-  const handleShowLocal = (localList) =>
-    localList.map((local, index) => <button key={index}>{local.label}</button>);
+  const handleShowLocal = (localList) => {
+    if (!localList) return;
+    return localList.map((local, index) => (
+      <button key={index}>{local.label}</button>
+    ));
+  };
 
   return currentItems.map((item, index) => (
     <ul key={index} className="tr-element">

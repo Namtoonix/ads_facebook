@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { addDataToServer } from "../../../feature/campaignAds/campaignAdsSlice";
 import InputImage from "./InputImage";
 import InputVideo from "./InputVideo";
+import SelectInputFeild from "./SelectInputFeild";
 import "./step2Page2.scss";
 
 Step2Page2.propTypes = {};
@@ -13,6 +14,7 @@ function Step2Page2(props) {
 
   const [campaign, setCampaign] = useState(() => {
     return {
+      ...campaignAdsData,
       media: campaignAdsData.media || {},
       mainContent: campaignAdsData.mainContent || "",
       title: campaignAdsData.title || "",
@@ -111,8 +113,7 @@ function Step2Page2(props) {
       );
     }
   };
-
-  const handleCheckForm = () => {
+  useEffect(() => {
     if (
       campaign?.media?.image?.preview !== "" &&
       campaign.mainContent !== "" &&
@@ -120,7 +121,8 @@ function Step2Page2(props) {
     ) {
       setIsFullFill(true);
     }
-  };
+  }, [campaign]);
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     await dispatch(addDataToServer(campaign)).unwrap();
@@ -139,57 +141,9 @@ function Step2Page2(props) {
         và đồng thời kêu gọi họ thực hiện hành động thông qua phần hiển thị nội
         dung quảng cáo của bạn.
       </p>
-      <form
-        id="form-example"
-        onSubmit={(e) => handleSubmitForm(e)}
-        onChange={() => handleCheckForm()}
-      >
+      <form id="form-example" onSubmit={(e) => handleSubmitForm(e)}>
         <label>Nội dung quảng cáo</label>
-        <div style={{ display: "flex" }}>
-          <div style={{ width: 50 + "%" }}>
-            <input
-              type="radio"
-              value="image"
-              name="use-image"
-              id="use-image"
-              onChange={(e) => handleUseImage(e.target.value)}
-              defaultChecked={useImage}
-            />
-            <label htmlFor="use-image">
-              Hình ảnh<br></br>
-              <span
-                style={{
-                  paddingLeft: 22 + "px",
-                  color: "#616161",
-                  fontWeight: 400,
-                }}
-              >
-                Tối đa 01 hình ảnh
-              </span>
-            </label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              value="video"
-              name="use-image"
-              id="use-video"
-              onChange={(e) => handleUseImage(e.target.value)}
-            />
-            <label htmlFor="use-video">
-              Video<br></br>
-              <span
-                style={{
-                  paddingLeft: 22 + "px",
-                  color: "#616161",
-                  fontWeight: 400,
-                }}
-              >
-                Tối đa 01 Video
-              </span>
-            </label>
-          </div>
-        </div>
+        <SelectInputFeild handleUseImage={handleUseImage} />
         {handleShowInputFeild(useImage)}
         <label htmlFor="main-content">Nội dung chính</label>
         <p>Thêm tối đa 5 nội dung chính, giới hạn 125 ký tự</p>

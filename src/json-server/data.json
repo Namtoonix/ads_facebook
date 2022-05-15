@@ -220,6 +220,65 @@
       "title": "sdfs",
       "desc": "",
       "id": 7
+    },
+    {
+      "name": "Facebook Ads ",
+      "budget": "20,000,000",
+      "dayStart": "2022-05-16",
+      "dayEnd": "2022-05-18",
+      "sex": "Nam",
+      "oldFrom": 15,
+      "oldTo": "60",
+      "local": [
+        {
+          "value": "Bắc Giang",
+          "label": "Bắc Giang"
+        },
+        {
+          "value": "Lạng Sơn",
+          "label": "Lạng Sơn"
+        }
+      ],
+      "media": {
+        "image": {
+          "preview": "blob:http://localhost:5500/1d6076c3-6cf9-4dae-b5f6-b08901269647"
+        }
+      },
+      "mainContent": "GSS",
+      "title": "GSS",
+      "desc": "",
+      "id": 8
+    },
+    {
+      "name": "Facebook Ads 12",
+      "budget": "20,000,000",
+      "dayStart": "2022-05-16",
+      "dayEnd": "2022-05-18",
+      "sex": "Nam",
+      "oldFrom": 15,
+      "oldTo": "60",
+      "local": [
+        {
+          "value": "Bắc Giang",
+          "label": "Bắc Giang"
+        },
+        {
+          "value": "Lạng Sơn",
+          "label": "Lạng Sơn"
+        }
+      ],
+      "timeStart": 0,
+      "timeEnd": 0,
+      "media": {
+        "image": {
+          "preview": "blob:http://localhost:5500/94338c79-23eb-4745-bf9f-347bb8bd80ee"
+        },
+        "video": {}
+      },
+      "mainContent": "test1122",
+      "title": "test1122",
+      "desc": "",
+      "id": 9
     }
   ]
 }
