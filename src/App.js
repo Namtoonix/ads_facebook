@@ -12,6 +12,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import CreateAccout from './pages/QuanLyQuangCao/CreateAccout';
 import LoginFB from './pages/QuanLyQuangCao/LoginFB';
 import QuanLyQuangCao from './pages/QuanLyQuangCao/QuanLyQuangCao';
+import StatisticsPage from './pages/StatisticsPage/StatisticsPage';
 import TongHop from './pages/TongHop/TongHop';
 import TopBar from './TopBar/TopBar';
 
@@ -65,6 +66,7 @@ function App() {
           <Route path='/quan-ly-quang-cao/creat-account' element={<CreateAccout stepList={stepList} />} />
           <Route path='/quan-ly-quang-cao/chien-dich-quang-cao' element={<ChienDichQuangCao stepList={stepList2} />} />
           <Route path='/quan-ly-quang-cao/tong-hop-quang-cao' element={<TongHop />} />
+          <Route path='/bao-cao' element={<StatisticsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

@@ -158,68 +158,6 @@
       "id": 1
     },
     {
-      "name": "VŨ HOÀNG NAM",
-      "budget": "1,000,000",
-      "dayStart": "2022-05-10",
-      "dayEnd": "2022-05-20",
-      "sex": "Nam",
-      "oldFrom": 15,
-      "oldTo": "80",
-      "local": [
-        {
-          "value": "Bắc Giang",
-          "label": "Bắc Giang"
-        },
-        {
-          "value": "Cao Bằng",
-          "label": "Cao Bằng"
-        }
-      ],
-      "media": {
-        "image": {
-          "preview": "blob:http://localhost:5500/56a2390a-2fd1-450f-b45e-e8e74e3a226e"
-        },
-        "video": {
-          "preview": "blob:http://localhost:5500/f3b084ea-d1e6-4657-9cdd-9820eb947078"
-        }
-      },
-      "mainContent": "FB Ads",
-      "title": "FB Ads",
-      "desc": "FB Ads",
-      "id": 2
-    },
-    {
-      "name": "Test 2",
-      "budget": "2,000,000",
-      "dayStart": "2022-05-23",
-      "dayEnd": "2022-05-31",
-      "sex": "Nữ",
-      "oldFrom": "20",
-      "oldTo": 80,
-      "local": [
-        {
-          "value": "Bắc Kạn",
-          "label": "Bắc Kạn"
-        },
-        {
-          "value": "Lạng Sơn",
-          "label": "Lạng Sơn"
-        }
-      ],
-      "media": {
-        "image": {
-          "preview": "blob:http://localhost:5500/64968213-543f-4b38-b9f0-1d94541d351f"
-        },
-        "video": {
-          "preview": "blob:http://localhost:5500/4c9ef111-d573-468b-9205-1cee455826d3"
-        }
-      },
-      "mainContent": "123",
-      "title": "123",
-      "desc": "123",
-      "id": 3
-    },
-    {
       "name": "Test 3",
       "budget": "6,000,000",
       "dayStart": "2022-05-03",
@@ -282,39 +220,6 @@
       "title": "sdfs",
       "desc": "",
       "id": 7
-    },
-    {
-      "name": "Test 2",
-      "budget": "5,000,000",
-      "dayStart": "2022-05-26",
-      "dayEnd": "2022-05-18",
-      "sex": "Nam",
-      "oldFrom": "25",
-      "oldTo": "82",
-      "local": [
-        {
-          "value": "Hưng Yên",
-          "label": "Hưng Yên"
-        },
-        {
-          "value": "Cao Bằng",
-          "label": "Cao Bằng"
-        },
-        {
-          "value": "Hà Giang",
-          "label": "Hà Giang"
-        }
-      ],
-      "media": {
-        "image": {
-          "preview": "blob:http://localhost:5500/13bd1153-b4d6-462f-beff-1176c51b514c"
-        },
-        "video": {}
-      },
-      "mainContent": "qweqwe",
-      "title": "qweqwe",
-      "desc": "",
-      "id": 8
     }
   ]
 }
