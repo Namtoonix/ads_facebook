@@ -18,7 +18,7 @@ function Campaign(props) {
         <Switch defaultChecked />
       </li>
       <li>{item.name}</li>
-      <li>
+      <li className="local-item">
         {item.sex}; {item.oldFrom}-{item.oldTo}+ <br></br>
         {handleShowLocal(item.local)}
       </li>

@@ -11,7 +11,7 @@ function ChienDichQuangCao(props) {
   const { stepList } = props;
   const step = useSelector((state) => state.checkStep2);
   const stepCompleted = useSelector((state) => state.step2Completed);
-  const [stepChild, setStepChild] = useState(1);
+  const [stepChild, setStepChild] = useState(0);
 
   const handleSetStepChild = (stepChild) => {
     setStepChild(stepChild);

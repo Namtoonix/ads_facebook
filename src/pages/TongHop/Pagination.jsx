@@ -15,7 +15,7 @@ function Pagination(props) {
     { value: 5, label: "Hiển thị 5 mục/trang" },
     { value: 10, label: "Hiển thị 10 mục/trang" },
   ];
-  const [paginate, setPaginate] = useState(0);
+  const [paginate, setPaginate] = useState(5);
   const handleSelectPagination = (paginate) => {
     setPaginate(paginate);
   };
@@ -27,7 +27,7 @@ function Pagination(props) {
     const endOffset = itemOffset + paginate;
     setCurrentItems(campaigns.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(campaigns.length / paginate));
-  }, [itemOffset, paginate]);
+  }, [paginate, itemOffset, campaigns]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * paginate) % campaigns.length;
@@ -47,11 +47,12 @@ function Pagination(props) {
         renderOnZeroPageCount={null}
       />
       <Select
+        defaultValue={optionsData[1]}
         id="pagination"
         onChange={(e) => handleSelectPagination(e.value)}
         options={optionsData}
       />
-      <span>Tổng {campaigns.length}</span>
+      <span className="total-item">Tổng {campaigns.length}</span>
     </>
   );
 }

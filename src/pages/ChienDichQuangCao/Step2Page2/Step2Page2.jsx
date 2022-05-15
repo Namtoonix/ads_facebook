@@ -1,38 +1,28 @@
-import React, { useEffect, useState } from "react";
-import "./step2Page2.scss";
-import bg_input from "../../../assets/Icon-Facebook/bg_input.png";
-import bg_input_video from "../../../assets/Icon-Facebook/bg_input_video.png";
-import remove from "../../../assets/Icon-Facebook/remove.png";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  campaignAds,
-  addCampaignToServer,
-} from "../../../feature/campaignAds/campaignAdsSlice";
-import { onStep2Completed } from "../../../feature/checkStep/step2CompletedSlice";
+import { Navigate } from "react-router-dom";
+import { addDataToServer } from "../../../feature/campaignAds/campaignAdsSlice";
+import InputImage from "./InputImage";
+import InputVideo from "./InputVideo";
+import "./step2Page2.scss";
 
 Step2Page2.propTypes = {};
 
 function Step2Page2(props) {
   const campaignAdsData = useSelector((state) => state.campaignAds);
 
-  const [image, setImage] = useState(() =>
-    campaignAdsData.media ? campaignAdsData.media : {}
-  );
-  const [video, setVideo] = useState(() =>
-    campaignAdsData.media ? campaignAdsData.media : {}
-  );
-  const [mainContent, setMaincontent] = useState(() =>
-    campaignAdsData.mainContent ? campaignAdsData.mainContent : ""
-  );
-  const [title, setTitle] = useState(() =>
-    campaignAdsData.title ? campaignAdsData.title : ""
-  );
-  const [desc, setDesc] = useState(() =>
-    campaignAdsData.desc ? campaignAdsData.desc : ""
-  );
+  const [campaign, setCampaign] = useState(() => {
+    return {
+      media: campaignAdsData.media || {},
+      mainContent: campaignAdsData.mainContent || "",
+      title: campaignAdsData.title || "",
+      desc: campaignAdsData.desc || "",
+    };
+  });
   const [isFullFill, setIsFullFill] = useState(false);
 
-  const stepCompleted = useSelector((state) => state.step2Completed);
+  const [isStepCompleted, setIsStepCompleted] = useState(false);
+
   const dispatch = useDispatch();
 
   const [useImage, setUseImage] = useState(true);
@@ -40,135 +30,106 @@ function Step2Page2(props) {
   const handleAddVideo = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setVideo(file);
+    setCampaign({
+      ...campaign,
+      media: {
+        ...campaign.media,
+        video: file,
+      },
+    });
   };
   const handleRemoveVideo = (e) => {
     e.preventDefault();
-    setVideo({});
+    setCampaign({
+      ...campaign,
+      media: {
+        ...campaign.media,
+        video: {},
+      },
+    });
   };
   const handleAddImage = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setImage(file);
+    setCampaign({
+      ...campaign,
+      media: {
+        ...campaign.media,
+        image: file,
+      },
+    });
   };
   const handleRemoveImage = (e) => {
     e.preventDefault();
-    setImage({});
+    setCampaign({
+      ...campaign,
+      media: {
+        ...campaign.media,
+        image: {},
+      },
+    });
   };
   const handleUseImage = (e) => {
     if (e === "image") {
       setUseImage(true);
-      setVideo({});
+      setCampaign({
+        ...campaign,
+        media: {
+          ...campaign.media,
+          video: {},
+        },
+      });
     } else {
       setUseImage(false);
-      setImage({});
+      setCampaign({
+        ...campaign,
+        media: {
+          ...campaign.media,
+          image: {},
+        },
+      });
     }
   };
   const handleShowInputFeild = (useImage) => {
     if (useImage) {
       return (
-        <>
-          <label>Hình ảnh</label>
-          <label
-            className="input-image"
-            style={image.preview ? {} : { backgroundImage: `url(${bg_input})` }}
-          >
-            <input type="file" accept=".png,.jpg" onChange={handleAddImage} />
-            <div style={image.preview ? {} : { display: "none" }}>
-              <img className="image-ads" src={image.preview} alt="" />
-              <button className="remove-image" onClick={handleRemoveImage}>
-                <img src={remove} alt="" />
-              </button>
-            </div>
-          </label>
-        </>
+        <InputImage
+          campaign={campaign}
+          handleAddImage={handleAddImage}
+          handleRemoveImage={handleRemoveImage}
+        />
       );
     } else {
       return (
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              width: 50 + "%",
-              display: "flex",
-              flexDirection: "column",
-              paddingRight: 8 + "px",
-            }}
-          >
-            <label>Video</label>
-            <label
-              className="input-video"
-              style={
-                video.preview
-                  ? {}
-                  : { backgroundImage: `url(${bg_input_video})` }
-              }
-            >
-              <input type="file" onChange={handleAddVideo} />
-              <div style={video.preview ? {} : { display: "none" }}>
-                <video
-                  className="video-ads"
-                  src={video.preview}
-                  height="150"
-                  controls
-                ></video>
-                <button className="remove-video" onClick={handleRemoveVideo}>
-                  <img src={remove} alt="" />
-                </button>
-              </div>
-            </label>
-          </div>
-          <div
-            style={{
-              width: 50 + "%",
-              display: "flex",
-              flexDirection: "column",
-              paddingLeft: 8 + "px",
-            }}
-          >
-            <label>Ảnh bìa của video</label>
-            <label
-              className="input-image"
-              style={
-                image.preview ? {} : { backgroundImage: `url(${bg_input})` }
-              }
-            >
-              <input type="file" accept=".png,.jpg" onChange={handleAddImage} />
-              <div style={image.preview ? {} : { display: "none" }}>
-                <img className="image-ads" src={image.preview} alt="" />
-                <button className="remove-image" onClick={handleRemoveImage}>
-                  <img src={remove} alt="" />
-                </button>
-              </div>
-            </label>
-          </div>
-        </div>
+        <InputVideo
+          campaign={campaign}
+          handleAddImage={handleAddImage}
+          handleRemoveImage={handleRemoveImage}
+          handleAddVideo={handleAddVideo}
+          handleRemoveVideo={handleRemoveVideo}
+        />
       );
     }
   };
 
   const handleCheckForm = () => {
-    if (image.preview !== "" && mainContent !== "" && title !== "") {
+    if (
+      campaign?.media?.image?.preview !== "" &&
+      campaign.mainContent !== "" &&
+      campaign.title !== ""
+    ) {
       setIsFullFill(true);
     }
   };
-  const handleSubmitForm = () => {
-    const media = {
-      image,
-      video,
-    };
-    const data = {
-      ...campaignAdsData,
-      media,
-      mainContent,
-      title,
-      desc,
-    };
-
-    const actions3 = onStep2Completed([]);
-    const actions4 = addCampaignToServer(data)
-    dispatch(actions3);
-    dispatch(actions4);
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    await dispatch(addDataToServer(campaign)).unwrap();
+    setIsStepCompleted(true);
   };
+
+  if (isStepCompleted) {
+    return <Navigate to="/quan-ly-quang-cao/tong-hop-quang-cao" />;
+  }
 
   return (
     <div className="page2-content">
@@ -180,7 +141,7 @@ function Step2Page2(props) {
       </p>
       <form
         id="form-example"
-        onSubmit={() => handleSubmitForm()}
+        onSubmit={(e) => handleSubmitForm(e)}
         onChange={() => handleCheckForm()}
       >
         <label>Nội dung quảng cáo</label>
@@ -198,7 +159,7 @@ function Step2Page2(props) {
               Hình ảnh<br></br>
               <span
                 style={{
-                  paddingLeft: 21 + "px",
+                  paddingLeft: 22 + "px",
                   color: "#616161",
                   fontWeight: 400,
                 }}
@@ -219,7 +180,7 @@ function Step2Page2(props) {
               Video<br></br>
               <span
                 style={{
-                  paddingLeft: 21 + "px",
+                  paddingLeft: 22 + "px",
                   color: "#616161",
                   fontWeight: 400,
                 }}
@@ -234,23 +195,33 @@ function Step2Page2(props) {
         <p>Thêm tối đa 5 nội dung chính, giới hạn 125 ký tự</p>
         <input
           type="text"
-          onChange={(e) => setMaincontent(e.target.value)}
+          onChange={(e) =>
+            setCampaign({
+              ...campaign,
+              mainContent: e.target.value,
+            })
+          }
           name="main-content"
           id="main-content"
-          value={mainContent}
+          value={campaign.mainContent}
           placeholder="Quảng cáo của bạn có nội dung gì vậy?"
-          className={mainContent === "" ? "disabled" : ""}
+          className={campaign.mainContent === "" ? "disabled" : ""}
         />
         <label htmlFor="title">Tiêu đề</label>
         <p>Thêm tối đa 5 tiêu đề</p>
         <input
           type="text"
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) =>
+            setCampaign({
+              ...campaign,
+              title: e.target.value,
+            })
+          }
           name="title"
           id="title"
-          value={title}
+          value={campaign.title}
           placeholder="Chat trên messenger"
-          className={title === "" ? "disabled" : ""}
+          className={campaign.title === "" ? "disabled" : ""}
         />
         <label htmlFor="desc">
           Mô tả - <span>không bắt buộc</span>
@@ -258,10 +229,15 @@ function Step2Page2(props) {
         <p>Thêm tối đa 5 mô tả</p>
         <input
           type="text"
-          onChange={(e) => setDesc(e.target.value)}
+          onChange={(e) =>
+            setCampaign({
+              ...campaign,
+              desc: e.target.value,
+            })
+          }
           name="desc"
           id="desc"
-          value={desc}
+          value={campaign.desc}
           placeholder="Quảng cáo của bạn có mô tả gì không?"
         />
         <input

@@ -27,7 +27,7 @@ function QuanLyQuangCao(props) {
           id="is-agree"
           defaultChecked={isCheck}
         />
-        <label htmlFor="is-agree">
+        <label htmlFor="is-agree" style={{marginLeft: 4+ "px"}}>
           Tôi đồng ý với điều khoản sử dụng của Haravan,{" "}
           <a href="/">Meta, Facebook Ads</a>
         </label>

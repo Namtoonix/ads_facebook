@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
@@ -65,18 +65,11 @@ function Step1Page2(props) {
     handleSetStepChild(stepChild);
   };
 
-  const handleCheckForm = () => {
-    if (
-      name !== "" &&
-      dayStart &&
-      timeStart &&
-      dayEnd &&
-      timeEnd &&
-      local.length > 0
-    ) {
+  useEffect(() => {
+    if (name !== "" && budget && dayStart && dayEnd && local.length > 0) {
       setIsFullFill(true);
     }
-  };
+  }, [name, budget, dayStart, dayEnd, local]);
 
   const handleSubmitForm = () => {
     const data = {
@@ -106,16 +99,14 @@ function Step1Page2(props) {
         Để tiếp cận đổi tượng phù hợp, hãy bắt đầu bằng cách lựa chọn các chế độ
         cài đặt chính cho quảng cáo của bạn
       </p>
-      <form
-        onSubmit={() => handleSubmitForm()}
-        onChange={() => handleCheckForm()}
-        id="form-campaign"
-      >
+      <form onSubmit={() => handleSubmitForm()} id="form-campaign">
         <div className="form-item item1">
           <label htmlFor="name">Tên Quảng cáo</label>
           <input
             type="text"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             id="name"
             value={name}
             className={name === "" ? "disabled" : ""}
@@ -126,12 +117,11 @@ function Step1Page2(props) {
           <label htmlFor="budget">Ngân sách và lịch chạy</label>
           <label htmlFor="budget">Ngân sách chạy quảng cáo</label>
           <input
-            type="number"
+            type="text"
             onChange={(e) => setBudget(e.target.value)}
             onBlur={() => handleSetBudget(budget)}
             id="budget"
             value={budget}
-            className={budget > 0 ? "disabled" : ""}
             onFocus={() => onFocusForm(1)}
           />
           <div className="input-group">
@@ -140,7 +130,9 @@ function Step1Page2(props) {
               <div className="input-group">
                 <input
                   type="date"
-                  onChange={(e) => setDayStart(e.target.value)}
+                  onChange={(e) => {
+                    setDayStart(e.target.value);
+                  }}
                   id="day"
                   value={dayStart}
                   className={dayStart ? "disabled" : ""}

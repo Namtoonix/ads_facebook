@@ -1,6 +1,9 @@
 @import "~antd/dist/antd.css";
+
 .synthetic-page {
   padding: 50px;
+  background: #e5e5e5;
+  height: 100vh;
   .top-content {
     display: flex;
     justify-content: space-between;
@@ -24,7 +27,7 @@
       }
     }
     input {
-      width: 50%;
+      width: 60%;
       padding: 10px 12px 10px 32px;
       background-size: auto 50%;
       background-position: 8px center;
@@ -35,7 +38,93 @@
   }
   .main-content {
     background: #fff;
+    position: relative;
     margin-top: 32px;
     border-radius: 4px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    .ant-switch-checked {
+      background: #22c993;
+    }
+    ul {
+      display: flex;
+      list-style-type: none;
+      margin-top: 12px;
+      padding-bottom: 12px;
+      li {
+        border: 0.5px solid #ccc;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 8px;
+        &:first-child {
+          margin-left: auto;
+        }
+      }
+    }
+    ul.tr-element {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      list-style-type: none;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 0;
+      padding-bottom: 0px;
+      li {
+        padding: 10px 12px;
+        border: none;
+        width: auto;
+        height: auto;
+        margin-left: unset;
+        margin-right: unset;
+        line-height: 1.4;
+        &.local-item {
+          button {
+            background: #f0f5fa;
+            border-radius: 3px;
+            border: none;
+            color: #595959;
+            margin-right: 4px;
+          }
+        }
+        &:nth-child(1) {
+          width: 10%;
+        }
+        &:nth-child(2) {
+          width: 20%;
+        }
+        &:nth-child(3) {
+          width: 20%;
+        }
+        &:nth-child(4) {
+          width: 15%;
+        }
+        &:nth-child(5) {
+          width: 15%;
+        }
+        &:nth-child(6) {
+          width: 20%;
+        }
+      }
+    }
+    #pagination {
+      position: absolute;
+      left: 20px;
+      bottom: 12px;
+    }
+    .total-item {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      line-height: 40px;
+      transform: translateX(-50%);
+    }
+    .selected {
+      border: 1px solid #fc625d;
+      a {
+        color: #fc625d;
+      }
+    }
   }
 }

@@ -22,6 +22,13 @@ function TongHop(props) {
     fetchCampaignList();
   }, []);
 
+  const handleCreateNewCampaign = () => {
+    localStorage.setItem('stepCompleted2', JSON.stringify([]));
+    localStorage.setItem('campaign', JSON.stringify({}));
+    localStorage.setItem('step2', JSON.stringify(1));
+    window.location.href = "/quan-ly-quang-cao/chien-dich-quang-cao";
+  }
+
   return (
     <div className="synthetic-page">
       <div className="top-content">
@@ -37,7 +44,7 @@ function TongHop(props) {
           onChange={(e) => setSearchKey(e.target.value)}
           placeholder="Tìm kiếm quảng cáo"
         />
-        <button>
+        <button onClick={() => handleCreateNewCampaign()}>
           <img src={icon6_w} alt="" />
           Thêm quảng cáo
         </button>
