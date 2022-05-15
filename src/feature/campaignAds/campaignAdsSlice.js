@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createBrowserHistory } from 'history';
+import campaignApi from '../../api/campaignApi'
 
 const browserHistory = createBrowserHistory();
 
@@ -10,14 +11,22 @@ const campaignAdsSlice = createSlice({
     reducers: {
         campaignAds(state, actions) {
             const data = actions.payload;
-            console.log(data);
             localStorage.setItem('campaign', JSON.stringify(data));
-            browserHistory.push("/quan-ly-quang-cao/tong-hop-quang-cao");
             return data;
+        },
+        addCampaignToServer(state, actions) {
+            const data = actions.payload;
+            localStorage.setItem('campaign', JSON.stringify({}));
+            const fetchCampaignData = async () => {
+                await campaignApi.add(data);
+            };
+
+            fetchCampaignData();
+            browserHistory.push("/quan-ly-quang-cao/tong-hop-quang-cao");
         }
     },
 });
 
 const { actions, reducer } = campaignAdsSlice;
-export const { campaignAds } = actions;
+export const { campaignAds, addCampaignToServer } = actions;
 export default reducer;

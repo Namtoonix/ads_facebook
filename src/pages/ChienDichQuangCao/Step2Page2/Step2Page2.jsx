@@ -4,7 +4,10 @@ import bg_input from "../../../assets/Icon-Facebook/bg_input.png";
 import bg_input_video from "../../../assets/Icon-Facebook/bg_input_video.png";
 import remove from "../../../assets/Icon-Facebook/remove.png";
 import { useDispatch, useSelector } from "react-redux";
-import { campaignAds } from "../../../feature/campaignAds/campaignAdsSlice";
+import {
+  campaignAds,
+  addCampaignToServer,
+} from "../../../feature/campaignAds/campaignAdsSlice";
 import { onStep2Completed } from "../../../feature/checkStep/step2CompletedSlice";
 
 Step2Page2.propTypes = {};
@@ -83,7 +86,14 @@ function Step2Page2(props) {
     } else {
       return (
         <div style={{ display: "flex" }}>
-          <div style={{ width: 50 + "%",display: "flex", flexDirection: "column", paddingRight: 8 + "px" }}>
+          <div
+            style={{
+              width: 50 + "%",
+              display: "flex",
+              flexDirection: "column",
+              paddingRight: 8 + "px",
+            }}
+          >
             <label>Video</label>
             <label
               className="input-video"
@@ -107,7 +117,14 @@ function Step2Page2(props) {
               </div>
             </label>
           </div>
-          <div style={{ width: 50 + "%",display: "flex", flexDirection: "column", paddingLeft: 8 + "px" }}>
+          <div
+            style={{
+              width: 50 + "%",
+              display: "flex",
+              flexDirection: "column",
+              paddingLeft: 8 + "px",
+            }}
+          >
             <label>Ảnh bìa của video</label>
             <label
               className="input-image"
@@ -146,11 +163,11 @@ function Step2Page2(props) {
       title,
       desc,
     };
-    const newStepCompleted = [...stepCompleted, 1];
-    const actions2 = campaignAds(data);
-    const actions3 = onStep2Completed(newStepCompleted);
-    dispatch(actions2);
+
+    const actions3 = onStep2Completed([]);
+    const actions4 = addCampaignToServer(data)
     dispatch(actions3);
+    dispatch(actions4);
   };
 
   return (

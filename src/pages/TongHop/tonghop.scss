@@ -1,0 +1,41 @@
+@import "~antd/dist/antd.css";
+.synthetic-page {
+  padding: 50px;
+  .top-content {
+    display: flex;
+    justify-content: space-between;
+    button {
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
+      &:first-child {
+        background-color: #fff;
+      }
+      &:last-child {
+        color: #fff;
+        background-color: #2962ff;
+      }
+    }
+    input {
+      width: 50%;
+      padding: 10px 12px 10px 32px;
+      background-size: auto 50%;
+      background-position: 8px center;
+      background-repeat: no-repeat;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+    }
+  }
+  .main-content {
+    background: #fff;
+    margin-top: 32px;
+    border-radius: 4px;
+  }
+}

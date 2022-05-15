@@ -126,7 +126,7 @@ function Step1Page2(props) {
           <label htmlFor="budget">Ngân sách và lịch chạy</label>
           <label htmlFor="budget">Ngân sách chạy quảng cáo</label>
           <input
-            type="text"
+            type="number"
             onChange={(e) => setBudget(e.target.value)}
             onBlur={() => handleSetBudget(budget)}
             id="budget"
@@ -193,7 +193,7 @@ function Step1Page2(props) {
             <div className="input-items">
               <label htmlFor="oldFrom">từ</label>
               <input
-                type="text"
+                type="number"
                 onChange={(e) => setOldFrom(e.target.value)}
                 id="oldFrom"
                 value={oldFrom}
@@ -203,7 +203,7 @@ function Step1Page2(props) {
             <div className="input-items">
               <label htmlFor="oldTo">đến</label>
               <input
-                type="text"
+                type="number"
                 onChange={(e) => setOldTo(e.target.value)}
                 id="oldTo"
                 value={oldTo}
