@@ -95,5 +95,34 @@
       "content": "Tạo tài khoản quảng cáo",
       "status": "waitting"
     }
+  ],
+  "step2": [
+    {
+      "id": 1,
+      "content": "Chiến dịch quảng cáo",
+      "status": "waitting",
+      "stepChild": [
+        {
+          "id": 11,
+          "content": "Tên quảng cáo",
+          "status": "waitting"
+        },
+        {
+          "id": 12,
+          "content": "Ngân sách và lịch chạy",
+          "status": "waitting"
+        },
+        {
+          "id": 13,
+          "content": "Đối tượng và khu vực quảng cáo",
+          "status": "waitting"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "Mẫu quảng cáo",
+      "status": "waitting"
+    }
   ]
 }

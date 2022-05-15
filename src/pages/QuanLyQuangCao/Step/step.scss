@@ -48,10 +48,15 @@
         color: #042659;
       }
     }
-    
-    &.completed button {
-      img {
-        display: block;
+
+    &.completed {
+      p {
+        color: #042659;
+      }
+      button {
+        img {
+          display: block;
+        }
       }
     }
   }

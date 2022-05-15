@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import navLeftApi from './api/navLeftApi';
 import stepApi from './api/stepApi';
+import step2Api from './api/step2Api';
 import './App.css';
 import BodyContainer from './BodyContainer/BodyContainer';
 import NavLeft from './NavLeft/NavLeft';
@@ -13,10 +14,12 @@ import CreateAccout from './pages/QuanLyQuangCao/CreateAccout';
 import LoginFB from './pages/QuanLyQuangCao/LoginFB';
 import QuanLyQuangCao from './pages/QuanLyQuangCao/QuanLyQuangCao';
 import TopBar from './TopBar/TopBar';
+import TongHop from './pages/TongHop/TongHop';
 
 function App() {
   const [menuList, setMenuList] = useState([])
   const [stepList, setStepList] = useState([])
+  const [stepList2, setStepList2] = useState([])
 
   useEffect(() => {
     const fetchMenuList = async () => {
@@ -36,6 +39,15 @@ function App() {
 
     fetchStepData();
   }, []);
+  useEffect(() => {
+    const fetchStep2Data = async () => {
+      const params = {};
+      const steps = await step2Api.getAll(params);
+      setStepList2(steps)
+    };
+
+    fetchStep2Data();
+  }, []);
 
   const config = {
     apiKey: 'AIzaSyAPrI7el5U6uh9l7K-fsIfp0rMehJ3nb2Y',
@@ -53,7 +65,8 @@ function App() {
           <Route path='/quan-ly-quang-cao' element={<QuanLyQuangCao />} />
           <Route path='/quan-ly-quang-cao/login-fb' element={<LoginFB />} />
           <Route path='/quan-ly-quang-cao/creat-account' element={<CreateAccout stepList={stepList} />} />
-          <Route path='/quan-ly-quang-cao/chien-dich-quang-cao' element={<ChienDichQuangCao/>} />
+          <Route path='/quan-ly-quang-cao/chien-dich-quang-cao' element={<ChienDichQuangCao stepList={stepList2} />} />
+          <Route path='/quan-ly-quang-cao/tong-hop-quang-cao' element={<TongHop />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

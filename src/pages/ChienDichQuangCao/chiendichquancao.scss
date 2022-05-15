@@ -1,0 +1,108 @@
+.campaign-ads {
+  display: flex;
+  padding: 30px;
+  .step2-container {
+    width: 360px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 0px;
+    z-index: 2;
+    margin: 0;
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 0 30px;
+      position: relative;
+      z-index: 3;
+      button {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #6d7175;
+        padding: 0;
+        font-weight: 400;
+        font-size: 18px;
+        color: #6d7175;
+        margin-right: 22px;
+        position: relative;
+        img {
+          display: none;
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+      .step-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        label {
+          text-align: center;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: #6d7175;
+          margin: 9px 0;
+        }
+        ul {
+          padding: 0;
+          list-style-type: none;
+          li {
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: #6d7175;
+            &:first-child {
+              margin-top: 11px;
+            }
+            &.active {
+              color: #042659;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+      &.active {
+        button {
+          color: #fff;
+          background-color: #042659;
+          border-color: #042659;
+        }
+        label {
+          color: #042659;
+        }
+      }
+
+      &.completed {
+        label {
+          color: #042659;
+        }
+        button {
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      left: 45px;
+      top: 40px;
+      width: 2px;
+      height: 120px;
+      border-left: 2px dashed #6d7175;
+      z-index: 0;
+    }
+  }
+  .page1-content,
+  .page2-content {
+    margin-left: 360px;
+    width: 66.66666%;
+  }
+}

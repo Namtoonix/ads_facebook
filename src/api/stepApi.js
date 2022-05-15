@@ -1,6 +1,6 @@
 import axiosClient from './axiosClient';
 
-const navLeftApi = {
+const stepApi = {
     getAll(params) {
         const url = '/step';
         return axiosClient.get(url, { params });
@@ -12,4 +12,4 @@ const navLeftApi = {
     },
 };
 
-export default navLeftApi;
+export default stepApi;
