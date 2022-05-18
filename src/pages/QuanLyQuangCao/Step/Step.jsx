@@ -1,24 +1,19 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { onCheckStep } from "../../../feature/checkStep/checkStepSlice";
-import check_icon from "../../../assets/Icon-Facebook/check.png"
+import React, { useReducer } from "react";
+import check_icon from "../../../assets/Icon-Facebook/check.png";
+import reducer, { initState } from "../feature/reducer";
 import "./step.scss";
 
 Step.propTypes = {
   step: PropTypes.object.isRequired,
-  stepCompleted: PropTypes.array.isRequired,
+  stepIndex: PropTypes.number.isRequired,
+  handleChangeStep: PropTypes.func.isRequired,
 };
 
 function Step(props) {
-  const { step, stepCompleted } = props;
-  const stepIndex = useSelector((state) => state.checkStep);
-  const dispatch = useDispatch();
-
-  const handleChangeStep = (step) => {
-    const actions = onCheckStep(step);
-    dispatch(actions);
-  };
+  const { step, stepIndex, handleChangeStep } = props;
+  const [state] = useReducer(reducer, initState);
+  const stepCompleted = state.stepCompleted;
 
   const handleFindCompleted = (item, arr) => {
     var classPlus = "";
@@ -35,10 +30,13 @@ function Step(props) {
       className={
         "step-item " +
         (step.id === stepIndex ? "active " : " ") +
-        (handleFindCompleted(step.id, stepCompleted))
+        handleFindCompleted(step.id, stepCompleted)
       }
     >
-      <button onClick={() => handleChangeStep(step.id)}>{step.id}<img src={check_icon} alt="" /></button>
+      <button onClick={() => handleChangeStep(step.id)}>
+        {step.id}
+        <img src={check_icon} alt="" />
+      </button>
       <p>{step.content}</p>
     </div>
   );

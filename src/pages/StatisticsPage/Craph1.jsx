@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import question from "../../assets/Icon-Facebook/question.png";
 
 function Graph1(props) {
+  const chartRef = useRef();
+
   const [state, setState] = useState({
     labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     teamPerformanceChart: "",
@@ -11,8 +13,6 @@ function Graph1(props) {
       0, 400, 200, 520, 590, 190, 598, 300, 460, 130, 440, 100, 170,
     ],
   });
-
-  const chartRef = useRef();
 
   useEffect(() => {
     let teamPerformanceChart = new Chart(chartRef.current, {
@@ -25,7 +25,7 @@ function Graph1(props) {
             data: state.completedData,
             borderColor: ["rgba(242, 122, 10, 1)"],
             backgroundColor: "rgba(242, 122, 10, 1)",
-            radius: 0,
+            radius: 5,
             borderWidth: 1.5,
             fill: false,
           },
@@ -34,7 +34,7 @@ function Graph1(props) {
             data: state.ongoingData,
             borderColor: ["rgba(49, 116, 221, 1)"],
             backgroundColor: "rgba(49, 116, 221, 1)",
-            radius: 0,
+            radius: 5,
             borderWidth: 1.5,
             fill: false,
           },

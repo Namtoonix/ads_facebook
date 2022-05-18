@@ -1,29 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { createBrowserHistory } from "history";
+import React, { useReducer, useState } from "react";
 import icon_error from "../../../assets/Icon-Facebook/error.png";
 import icon_reload from "../../../assets/Icon-Facebook/reload.png";
-import { accountData } from "../../../feature/accountSlice/accountSlice";
-import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
+import { createAccount } from "../feature/action";
+import reducer, { initState } from "../feature/reducer";
 import "./step3.scss";
 
 Step3Page.propTypes = {};
 
 function Step3Page(props) {
-  const account = useSelector((state) => state.account);
-  const stepCompleted = useSelector((state) => state.stepCompleted);
-  const [select, setSelect] = useState(() => {
-    if (account.nick) {
-      if (account.nick.id !== undefined) {
-        return account.nick.id;
-      } else {
-        return "";
-      }
-    } else {
-      return "";
-    }
-  });
+  const [state, dispatch] = useReducer(reducer, initState);
   const [isShowSelect, setIsShowSelect] = useState(false);
-  const dispatch = useDispatch();
 
   const optionAccount = [
     { id: 0, title: "Doanh nghiệp ABC", avatar: 697106704932412 },
@@ -31,18 +18,28 @@ function Step3Page(props) {
     { id: 2, title: "Doanh nghiệp ABC", avatar: 697106704936856 },
   ];
 
+  const browserHistory = createBrowserHistory();
+
   const handleShowOption = (optionPages) => {
     if (isShowSelect) {
       return optionPages.map((option, index) => (
-        <div key={index} className={"select-item " + (select === option.id ? "active" : "")}>
+        <div
+          key={index}
+          className={
+            "select-item " + (state.nick?.id === option.id ? "active" : "")
+          }
+        >
           <label>
-            {option.title} <br></br><span>ID: <span>{option.avatar}</span></span> 
+            {option.title} <br></br>
+            <span>
+              ID: <span>{option.avatar}</span>
+            </span>
           </label>
           <input
             type="checkbox"
-            onChange={() => setSelect(option.id)}
+            onChange={() => dispatch(createAccount({ nick: option }))}
             id={option.title}
-            checked={select === option.id}
+            checked={state.nick?.id === option.id}
           />
         </div>
       ));
@@ -60,18 +57,13 @@ function Step3Page(props) {
     }
   };
 
-  const handleSubmit = (nick) => {
+  const handleSubmit = () => {
     const data = {
-      ...account,
-      nick: nick,
+      step: 1,
+      stepCompleted: [...state.stepCompleted, 3],
     };
-    const newStepCompleted = [
-        ...stepCompleted, 3
-      ]
-      const actions2 = accountData(data);
-      const actions3 = onStepCompleted(newStepCompleted);
-    dispatch(actions2);
-    dispatch(actions3);
+    dispatch(createAccount(data));
+    browserHistory.push("/quan-ly-quang-cao/chien-dich-quang-cao");
   };
 
   return (
@@ -87,7 +79,10 @@ function Step3Page(props) {
           https://business.facebook.com/settings/ad-accounts/?business_id=129318238128
         </a>
       </p>
-      <form id="step3" onSubmit={() => handleSubmit(optionAccount[select])}>
+      <form
+        id="step3"
+        onSubmit={() => handleSubmit(optionAccount[state.nick?.id])}
+      >
         <div
           className="show-select-btn"
           style={{
@@ -123,8 +118,8 @@ function Step3Page(props) {
           type="submit"
           form="step3"
           value="Hoàn tất"
-          className={"submit-btn " + (select === "" ? "disabled" : "")}
-          disabled={select === "" ? "disabled" : ""}
+          className={"submit-btn " + (state.nick?.id === "" ? "disabled" : "")}
+          disabled={state.nick?.id === "" ? "disabled" : ""}
         />
       </form>
     </div>

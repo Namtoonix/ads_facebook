@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import React, { useEffect, useState } from "react";
 import { StyledFirebaseAuth } from "react-firebaseui";
-import image from "../../assets/Icon-Facebook/image1.png";
+import image from "../../../assets/Icon-Facebook/image1.png";
 
 LoginFB.propTypes = {};
 
@@ -10,10 +10,7 @@ function LoginFB(props) {
 
   const uiConfig = {
     signInFlow: "popup",
-    signInOptions: [
-      /* firebase.auth.GoogleAuthProvider.PROVIDER_ID, */
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    ],
+    signInOptions: [firebase.auth.FacebookAuthProvider.PROVIDER_ID],
     callbacks: {
       signInSuccessWithAuthResult: () => false,
     },

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useReducer, useState } from "react";
 import Select from "react-select";
-import { campaignAds } from "../../../feature/campaignAds/campaignAdsSlice";
-import { onCheckStep2 } from "../../../feature/checkStep/checkStep2Slice";
-import { onStep2Completed } from "../../../feature/checkStep/step2CompletedSlice";
+import { createCampaign } from "../feature/action";
+import reducer, { initState } from "../feature/reducer";
 import { localData } from "./importLocal";
 import "./step1Page2.scss";
 
@@ -15,26 +13,7 @@ Step1Page2.propTypes = {
 function Step1Page2(props) {
   const { handleSetStepChild } = props;
   const [isFullFill, setIsFullFill] = useState(false);
-
-  const campaignAdsData = useSelector((state) => state.campaignAds);
-  const [campaign, setCampaign] = useState(() => {
-    return {
-      ...campaignAdsData,
-      name: campaignAdsData.name || "",
-      budget: campaignAdsData.budget || 0,
-      dayStart: campaignAdsData.dayStart || 0,
-      timeStart: campaignAdsData.timeStart || 0,
-      dayEnd: campaignAdsData.dayEnd || 0,
-      timeEnd: campaignAdsData.timeEnd || 0,
-      sex: campaignAdsData.sex || "Nam",
-      oldFrom: campaignAdsData.oldFrom || 15,
-      oldTo: campaignAdsData.oldTo || 65,
-      local: campaignAdsData.local || [],
-    };
-  });
-
-  const stepCompleted = useSelector((state) => state.step2Completed);
-  const dispatch = useDispatch();
+  const [state, dispatch] = useReducer(reducer, initState);
 
   const options = [
     { value: "Nam", label: "Nam" },
@@ -43,10 +22,9 @@ function Step1Page2(props) {
 
   const handleSetBudget = (money) => {
     var nf = Intl.NumberFormat();
-    setCampaign({
-      ...campaign,
+    dispatch(createCampaign({
       budget: nf.format(money),
-    });
+    }))
   };
 
   const onFocusForm = (stepChild) => {
@@ -55,22 +33,19 @@ function Step1Page2(props) {
 
   useEffect(() => {
     if (
-      campaign.name !== "" &&
-      campaign.budget &&
-      campaign.dayStart &&
-      campaign.dayEnd &&
-      campaign?.local?.length > 0
+      state.name !== "" &&
+      state.budget &&
+      state.dayStart &&
+      state.dayEnd &&
+      state?.local?.length > 0
     ) {
       setIsFullFill(true);
     }
-  }, [campaign]);
+  }, [state]);
 
   const handleSubmitForm = () => {
-    handleSetStepChild(4);
-    const newStepCompleted = [...stepCompleted, 1];
-    dispatch(onCheckStep2(2));
-    dispatch(campaignAds(campaign));
-    dispatch(onStep2Completed(newStepCompleted));
+    dispatch(createCampaign({ step: 2 }));
+    dispatch(createCampaign({ stepCompleted: [...state.stepCompleted, 1] }));
   };
 
   return (
@@ -86,14 +61,15 @@ function Step1Page2(props) {
           <input
             type="text"
             onChange={(e) => {
-              setCampaign({
-                ...campaign,
-                name: e.target.value,
-              });
+              dispatch(
+                createCampaign({
+                  name: e.target.value,
+                })
+              );
             }}
             id="name"
-            value={campaign.name}
-            className={campaign.name === "" ? "disabled" : ""}
+            value={state.name}
+            className={state.name === "" ? "disabled" : ""}
             onFocus={() => onFocusForm(0)}
           />
         </div>
@@ -103,14 +79,15 @@ function Step1Page2(props) {
           <input
             type="text"
             onChange={(e) =>
-              setCampaign({
-                ...campaign,
-                budget: e.target.value,
-              })
+              dispatch(
+                createCampaign({
+                  budget: e.target.value,
+                })
+              )
             }
-            onBlur={() => handleSetBudget(campaign.budget)}
+            onBlur={() => handleSetBudget(state.budget)}
             id="budget"
-            value={campaign.budget}
+            value={state.budget}
             onFocus={() => onFocusForm(1)}
           />
           <div className="input-group">
@@ -120,26 +97,28 @@ function Step1Page2(props) {
                 <input
                   type="date"
                   onChange={(e) => {
-                    setCampaign({
-                      ...campaign,
-                      dayStart: e.target.value,
-                    });
+                    dispatch(
+                      createCampaign({
+                        dayStart: e.target.value,
+                      })
+                    );
                   }}
                   id="day"
-                  value={campaign.dayStart}
-                  className={campaign.dayStart ? "disabled" : ""}
+                  value={state.dayStart}
+                  className={state.dayStart ? "disabled" : ""}
                   onFocus={() => onFocusForm(1)}
                 />
                 <input
                   type="time"
                   onChange={(e) =>
-                    setCampaign({
-                      ...campaign,
-                      timeStart: e.target.value,
-                    })
+                    dispatch(
+                      createCampaign({
+                        timeStart: e.target.value,
+                      })
+                    )
                   }
                   id="day"
-                  value={campaign.timeStart}
+                  value={state.timeStart}
                   onFocus={() => onFocusForm(1)}
                 />
               </div>
@@ -150,26 +129,28 @@ function Step1Page2(props) {
                 <input
                   type="date"
                   onChange={(e) =>
-                    setCampaign({
-                      ...campaign,
-                      dayEnd: e.target.value,
-                    })
+                    dispatch(
+                      createCampaign({
+                        dayEnd: e.target.value,
+                      })
+                    )
                   }
                   id="day"
-                  value={campaign.dayEnd}
-                  className={campaign.dayEnd ? "disabled" : ""}
+                  value={state.dayEnd}
+                  className={state.dayEnd ? "disabled" : ""}
                   onFocus={() => onFocusForm(1)}
                 />
                 <input
                   type="time"
                   onChange={(e) =>
-                    setCampaign({
-                      ...campaign,
-                      timeEnd: e.target.value,
-                    })
+                    dispatch(
+                      createCampaign({
+                        timeEnd: e.target.value,
+                      })
+                    )
                   }
                   id="day"
-                  value={campaign.timeEnd}
+                  value={state.timeEnd}
                   onFocus={() => onFocusForm(1)}
                 />
               </div>
@@ -185,10 +166,11 @@ function Step1Page2(props) {
                 id="sex"
                 defaultValue={options[0]}
                 onChange={(e) =>
-                  setCampaign({
-                    ...campaign,
-                    sex: e.value,
-                  })
+                  dispatch(
+                    createCampaign({
+                      sex: e.value,
+                    })
+                  )
                 }
                 options={options}
                 onFocus={() => onFocusForm(2)}
@@ -199,13 +181,14 @@ function Step1Page2(props) {
               <input
                 type="number"
                 onChange={(e) =>
-                  setCampaign({
-                    ...campaign,
-                    oldFrom: e.target.value,
-                  })
+                  dispatch(
+                    createCampaign({
+                      oldFrom: e.target.value,
+                    })
+                  )
                 }
                 id="oldFrom"
-                value={campaign.oldFrom}
+                value={state.oldFrom}
                 onFocus={() => onFocusForm(2)}
               />
             </div>
@@ -214,13 +197,14 @@ function Step1Page2(props) {
               <input
                 type="number"
                 onChange={(e) =>
-                  setCampaign({
-                    ...campaign,
-                    oldTo: e.target.value,
-                  })
+                  dispatch(
+                    createCampaign({
+                      oldTo: e.target.value,
+                    })
+                  )
                 }
                 id="oldTo"
-                value={campaign.oldTo}
+                value={state.oldTo}
                 onFocus={() => onFocusForm(2)}
               />
             </div>
@@ -233,12 +217,13 @@ function Step1Page2(props) {
             options={localData}
             className="basic-multi-select"
             classNamePrefix="select"
-            value={campaign.local}
+            value={state.local}
             onChange={(e) =>
-              setCampaign({
-                ...campaign,
-                local: [...e],
-              })
+              dispatch(
+                createCampaign({
+                  local: [...e],
+                })
+              )
             }
             onFocus={() => onFocusForm(2)}
           />

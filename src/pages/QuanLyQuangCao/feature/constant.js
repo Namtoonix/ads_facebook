@@ -1,0 +1,1 @@
+export const CREATE_ACCOUNT = 'create_account';

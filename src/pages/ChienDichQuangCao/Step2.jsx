@@ -1,24 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { onCheckStep2 } from "../../feature/checkStep/checkStep2Slice";
+import React, { useReducer } from "react";
 import check_icon from "../../assets/Icon-Facebook/check.png";
+import reducer, { initState } from "./feature/reducer";
 
 Step2.propTypes = {
   step: PropTypes.object.isRequired,
-  stepCompleted: PropTypes.array.isRequired,
-  stepChildIndex: PropTypes.number.isRequired,
+  stepIndex: PropTypes.number.isRequired,
+  handleChangeStep: PropTypes.func.isRequired,
 };
 
 function Step2(props) {
-  const { step, stepCompleted, stepChildIndex } = props;
-  const stepIndex = useSelector((state) => state.checkStep2);
-  const dispatch = useDispatch();
-
-  const handleChangeStep = (step) => {
-    const actions = onCheckStep2(step);
-    dispatch(actions);
-  };
+  const { step, stepIndex, handleChangeStep, stepChildIndex } = props;
+  const [state] = useReducer(reducer, initState);
+  const stepCompleted = state.stepCompleted;
 
   const handleFindCompleted = (item, arr) => {
     var classPlus = "";

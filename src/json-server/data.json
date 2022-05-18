@@ -271,6 +271,71 @@
       "title": "123",
       "desc": "",
       "id": 11
+    },
+    {
+      "name": "Quảng cáo Haravan",
+      "budget": "8,000,000",
+      "dayStart": "2022-05-25",
+      "timeStart": 0,
+      "dayEnd": "2022-05-30",
+      "timeEnd": 0,
+      "sex": "Nam",
+      "oldFrom": "20",
+      "oldTo": "30",
+      "local": [
+        {
+          "value": "Vĩnh Long",
+          "label": "Vĩnh Long"
+        },
+        {
+          "value": "Nam Định",
+          "label": "Nam Định"
+        }
+      ],
+      "media": {
+        "image": {
+          "preview": "blob:http://localhost:5500/6158c9d4-bbea-45b8-b714-e02ece4ee83e"
+        },
+        "video": {
+          "preview": "blob:http://localhost:5500/2c4395a6-699f-456c-b3ac-8e00797b7e48"
+        }
+      },
+      "mainContent": "GSS Team",
+      "title": "GSS Team",
+      "desc": "",
+      "id": 12
+    },
+    {
+      "step": 1,
+      "stepCompleted": [
+        1,
+        2
+      ],
+      "name": "test nè",
+      "budget": "9,999,999",
+      "dayStart": "2022-05-16",
+      "timeStart": 0,
+      "dayEnd": "2022-06-03",
+      "timeEnd": 0,
+      "sex": "Nữ",
+      "oldFrom": 15,
+      "oldTo": "20",
+      "local": [
+        {
+          "value": "Bắc Kạn",
+          "label": "Bắc Kạn"
+        }
+      ],
+      "media": {
+        "image": {
+          "preview": "blob:http://localhost:5500/8b17e753-1b38-46da-a5a1-c38c839bed27"
+        },
+        "video": ""
+      },
+      "mainContent": "ủmela",
+      "title": "dds",
+      "desc": "",
+      "id": 13
     }
   ]
 }

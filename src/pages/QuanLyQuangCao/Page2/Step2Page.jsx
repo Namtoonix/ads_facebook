@@ -1,31 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { accountData } from "../../../feature/accountSlice/accountSlice";
-import { onCheckStep } from "../../../feature/checkStep/checkStepSlice";
-import { arrAvatar } from "./imporAvata";
+import React, { useReducer, useState } from "react";
 import icon_error from "../../../assets/Icon-Facebook/error.png";
 import icon_reload from "../../../assets/Icon-Facebook/reload.png";
+import { createAccount } from "../feature/action";
+import reducer, { initState } from "../feature/reducer";
+import { arrAvatar } from "./imporAvata";
 import "./step2.scss";
-import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
 
 Step2Page.propTypes = {};
 
 function Step2Page(props) {
-  const account = useSelector((state) => state.account);
-  const stepCompleted = useSelector((state) => state.stepCompleted);
-  const [select, setSelect] = useState(() => {
-    if (account.page) {
-      if (account.page.id !== undefined) {
-        return account.page.id;
-      } else {
-        return "";
-      }
-    } else {
-      return "";
-    }
-  });
+  const [state, dispatch] = useReducer(reducer, initState);
   const [isShowSelect, setIsShowSelect] = useState(false);
-  const dispatch = useDispatch();
 
   const optionPages = [
     { id: 0, title: "Neoworld account", avatar: "av1" },
@@ -36,14 +21,19 @@ function Step2Page(props) {
   const handleShowOption = (optionPages) => {
     if (isShowSelect) {
       return optionPages.map((option, index) => (
-        <div key={index} className={"select-item " + (select === option.id ? "active" : "")}>
+        <div
+          key={index}
+          className={
+            "select-item " + (state.page?.id === option.id ? "active" : "")
+          }
+        >
           <img src={arrAvatar[option.avatar]} alt="" />
           <label>{option.title}</label>
           <input
             type="checkbox"
-            onChange={() => setSelect(option.id)}
+            onChange={() => dispatch(createAccount({ page: option }))}
             id={option.title}
-            checked={select === option.id}
+            checked={state.page?.id === option.id}
           />
         </div>
       ));
@@ -61,20 +51,12 @@ function Step2Page(props) {
     }
   };
 
-  const handleSubmit = (page) => {
-    const actions1 = onCheckStep(3);
+  const handleSubmit = () => {
     const data = {
-      ...account,
-      page: page,
+      step: 3,
+      stepCompleted: [...state.stepCompleted, 2],
     };
-    const newStepCompleted = [
-      ...stepCompleted, 2
-    ]
-    const actions2 = accountData(data);
-    const actions3 = onStepCompleted(newStepCompleted);
-    dispatch(actions1);
-    dispatch(actions2);
-    dispatch(actions3);
+    dispatch(createAccount(data));
   };
 
   return (
@@ -90,7 +72,7 @@ function Step2Page(props) {
           https://business.facebook.com/settings/ad-accounts/?business_id=129318238128
         </a>
       </p>
-      <form id="step2" onSubmit={() => handleSubmit(optionPages[select])}>
+      <form id="step2" onSubmit={() => handleSubmit()}>
         <div
           className="show-select-btn"
           style={{
@@ -126,8 +108,8 @@ function Step2Page(props) {
           type="submit"
           form="step2"
           value="Tiếp tục"
-          className={"submit-btn " + (select === "" ? "disabled" : "")}
-          disabled={select === "" ? "disabled" : ""}
+          className={"submit-btn " + (state.page?.id === "" ? "disabled" : "")}
+          disabled={state.page?.id === "" ? "disabled" : ""}
         />
       </form>
     </div>

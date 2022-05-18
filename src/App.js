@@ -10,7 +10,7 @@ import NavLeft from './NavLeft/NavLeft';
 import ChienDichQuangCao from './pages/ChienDichQuangCao/ChienDichQuangCao';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import CreateAccout from './pages/QuanLyQuangCao/CreateAccout';
-import LoginFB from './pages/QuanLyQuangCao/LoginFB';
+import LoginFB from './pages/QuanLyQuangCao/LoginFB/LoginFB';
 import QuanLyQuangCao from './pages/QuanLyQuangCao/QuanLyQuangCao';
 import StatisticsPage from './pages/StatisticsPage/StatisticsPage';
 import TongHop from './pages/TongHop/TongHop';

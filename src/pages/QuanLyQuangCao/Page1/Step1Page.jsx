@@ -1,32 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { onCheckStep } from "../../../feature/checkStep/checkStepSlice";
-import { accountData } from "../../../feature/accountSlice/accountSlice";
+import React, { useReducer } from "react";
+import { createAccount } from "../feature/action";
+import reducer, { initState } from "../feature/reducer";
 import "./step1.scss";
-import { onStepCompleted } from "../../../feature/checkStep/stepCompletedSlice";
 
 Step1Page.propTypes = {};
 
 function Step1Page(props) {
-  const account = useSelector((state) => state.account);
-  const stepCompleted = useSelector((state) => state.stepCompleted);
-  const [name, setName] = useState(account.name ? account.name : "");
-  const dispatch = useDispatch();
+  const [state, dispatch] = useReducer(reducer, initState);
 
-  const handleSubmit = (name) => {
-    const actions1 = onCheckStep(2);
+  const handleSubmit = () => {
     const data = {
-      ...account,
-      name: name,
+      step: 2,
+      stepCompleted: [...state.stepCompleted, 1],
     };
-    const newStepCompleted = [
-      ...stepCompleted, 1
-    ]
-    const actions2 = accountData(data);
-    const actions3 = onStepCompleted(newStepCompleted);
-    dispatch(actions1);
-    dispatch(actions2);
-    dispatch(actions3);
+    dispatch(createAccount(data));
   };
 
   return (
@@ -36,22 +23,22 @@ function Step1Page(props) {
         Bạn cần kết nối Facebook của mình với tài khoản Trình quản lý kinh doanh
         để thiết lập quảng cáo. Điền thông tin bên dưới để tạo tài khoản.
       </p>
-      <form id="step1" onSubmit={() => handleSubmit(name)}>
+      <form id="step1" onSubmit={() => handleSubmit(state)}>
         <label htmlFor="namePage">Tên doanh nghiệp</label>
         <input
           type="text"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => dispatch(createAccount({ name: e.target.value }))}
           name="namePage"
           id="namePage"
-          value={name}
-          className={name === "" ? "disabled" : ""}
+          value={state.name}
+          className={state.name === "" ? "disabled" : ""}
         />
         <input
           type="submit"
           form="step1"
           value="Tiếp tục"
-          className={"submit-btn " + (name === "" ? "disabled" : "")}
-          disabled={name === "" ? "disabled" : ""}
+          className={"submit-btn " + (state.name === "" ? "disabled" : "")}
+          disabled={state.name === "" ? "disabled" : ""}
         />
       </form>
     </div>

@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import React, { useReducer, useState } from "react";
+import "./chiendichquancao.scss";
+import reducer, { initState } from "./feature/reducer";
 import Step1Page2 from "./Step1Page2/Step1Page2";
 import Step2 from "./Step2";
 import Step2Page2 from "./Step2Page2/Step2Page2";
-import "./chiendichquancao.scss";
 
-ChienDichQuangCao.propTypes = {};
+ChienDichQuangCao.propTypes = {
+  stepList: PropTypes.array.isRequired,
+};
 
 function ChienDichQuangCao(props) {
   const { stepList } = props;
-  const step = useSelector((state) => state.checkStep2);
-  const stepCompleted = useSelector((state) => state.step2Completed);
+  const [state] = useReducer(reducer, initState);
+  const [stepIndex, setStepIndex] = useState(state.step ? state.step : 1);
   const [stepChild, setStepChild] = useState(0);
 
   const handleSetStepChild = (stepChild) => {
     setStepChild(stepChild);
+  };
+
+  const handleChangeStep = (step) => {
+    setStepIndex(step);
   };
 
   const handleShowStep = (stepList) => {
@@ -23,7 +30,8 @@ function ChienDichQuangCao(props) {
       <Step2
         key={index}
         step={step}
-        stepCompleted={stepCompleted}
+        stepIndex={stepIndex}
+        handleChangeStep={handleChangeStep}
         stepChildIndex={stepChild}
       />
     ));
@@ -39,7 +47,7 @@ function ChienDichQuangCao(props) {
   return (
     <div className="campaign-ads">
       <ul className="step2-container">{handleShowStep(stepList)}</ul>
-      {handleShowContentStep(step)}
+      {handleShowContentStep(stepIndex)}
     </div>
   );
 }

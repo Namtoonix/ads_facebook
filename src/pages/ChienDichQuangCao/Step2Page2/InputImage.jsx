@@ -11,6 +11,7 @@ InputImage.propTypes = {
 
 function InputImage(props) {
   const { campaign, handleAddImage, handleRemoveImage } = props;
+  
   return (
     <>
       <label>Hình ảnh</label>

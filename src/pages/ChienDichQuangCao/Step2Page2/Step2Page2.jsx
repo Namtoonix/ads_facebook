@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { addDataToServer } from "../../../feature/campaignAds/campaignAdsSlice";
+import React, { useEffect, useReducer, useState } from "react";
+import { createCampaign, addCampaign } from "../feature/action";
+import reducer, { initState } from "../feature/reducer";
 import InputImage from "./InputImage";
 import InputVideo from "./InputVideo";
 import SelectInputFeild from "./SelectInputFeild";
@@ -10,93 +9,70 @@ import "./step2Page2.scss";
 Step2Page2.propTypes = {};
 
 function Step2Page2(props) {
-  const campaignAdsData = useSelector((state) => state.campaignAds);
-
-  const [campaign, setCampaign] = useState(() => {
-    return {
-      ...campaignAdsData,
-      media: campaignAdsData.media || {},
-      mainContent: campaignAdsData.mainContent || "",
-      title: campaignAdsData.title || "",
-      desc: campaignAdsData.desc || "",
-    };
-  });
-  const [isFullFill, setIsFullFill] = useState(false);
-
-  const [isStepCompleted, setIsStepCompleted] = useState(false);
-
-  const dispatch = useDispatch();
-
+  const [state, dispatch] = useReducer(reducer, initState);
   const [useImage, setUseImage] = useState(true);
+  const [isFullFill, setIsFullFill] = useState(false);
 
   const handleAddVideo = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setCampaign({
-      ...campaign,
-      media: {
-        ...campaign.media,
-        video: file,
-      },
-    });
+    dispatch(
+      createCampaign({
+        media: {
+          ...state.media,
+          video: file,
+        },
+      })
+    );
   };
   const handleRemoveVideo = (e) => {
     e.preventDefault();
-    setCampaign({
-      ...campaign,
-      media: {
-        ...campaign.media,
-        video: {},
-      },
-    });
+    dispatch(
+      createCampaign({
+        media: {
+          ...state.media,
+          video: {},
+        },
+      })
+    );
   };
   const handleAddImage = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
-    setCampaign({
-      ...campaign,
-      media: {
-        ...campaign.media,
-        image: file,
-      },
-    });
+    dispatch(
+      createCampaign({
+        media: {
+          ...state.media,
+          image: file,
+        },
+      })
+    );
   };
   const handleRemoveImage = (e) => {
     e.preventDefault();
-    setCampaign({
-      ...campaign,
-      media: {
-        ...campaign.media,
-        image: {},
-      },
-    });
+    dispatch(
+      createCampaign({
+        media: {
+          ...state.media,
+          image: {},
+        },
+      })
+    );
   };
   const handleUseImage = (e) => {
     if (e === "image") {
       setUseImage(true);
-      setCampaign({
-        ...campaign,
-        media: {
-          ...campaign.media,
-          video: {},
-        },
-      });
+      handleRemoveVideo();
     } else {
       setUseImage(false);
-      setCampaign({
-        ...campaign,
-        media: {
-          ...campaign.media,
-          image: {},
-        },
-      });
+      handleRemoveImage();
     }
   };
   const handleShowInputFeild = (useImage) => {
     if (useImage) {
       return (
         <InputImage
-          campaign={campaign}
+          campaign={state}
           handleAddImage={handleAddImage}
           handleRemoveImage={handleRemoveImage}
         />
@@ -104,7 +80,7 @@ function Step2Page2(props) {
     } else {
       return (
         <InputVideo
-          campaign={campaign}
+          campaign={state}
           handleAddImage={handleAddImage}
           handleRemoveImage={handleRemoveImage}
           handleAddVideo={handleAddVideo}
@@ -115,23 +91,19 @@ function Step2Page2(props) {
   };
   useEffect(() => {
     if (
-      campaign?.media?.image?.preview !== "" &&
-      campaign.mainContent !== "" &&
-      campaign.title !== ""
+      state?.media?.image?.preview !== "" &&
+      state.mainContent !== "" &&
+      state.title !== ""
     ) {
       setIsFullFill(true);
     }
-  }, [campaign]);
+  }, [state]);
 
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-    await dispatch(addDataToServer(campaign)).unwrap();
-    setIsStepCompleted(true);
+  const handleSubmitForm = () => {
+    dispatch(createCampaign({ step: 1 }));
+    dispatch(createCampaign({ stepCompleted: [...state.stepCompleted, 2] }));
+    dispatch(addCampaign(state));
   };
-
-  if (isStepCompleted) {
-    return <Navigate to="/quan-ly-quang-cao/tong-hop-quang-cao" />;
-  }
 
   return (
     <div className="page2-content">
@@ -141,7 +113,7 @@ function Step2Page2(props) {
         và đồng thời kêu gọi họ thực hiện hành động thông qua phần hiển thị nội
         dung quảng cáo của bạn.
       </p>
-      <form id="form-example" onSubmit={(e) => handleSubmitForm(e)}>
+      <form id="form-example" onSubmit={() => handleSubmitForm()}>
         <label>Nội dung quảng cáo</label>
         <SelectInputFeild handleUseImage={handleUseImage} />
         {handleShowInputFeild(useImage)}
@@ -150,32 +122,24 @@ function Step2Page2(props) {
         <input
           type="text"
           onChange={(e) =>
-            setCampaign({
-              ...campaign,
-              mainContent: e.target.value,
-            })
+            dispatch(createCampaign({ mainContent: e.target.value }))
           }
           name="main-content"
           id="main-content"
-          value={campaign.mainContent}
+          value={state.mainContent}
           placeholder="Quảng cáo của bạn có nội dung gì vậy?"
-          className={campaign.mainContent === "" ? "disabled" : ""}
+          className={state.mainContent === "" ? "disabled" : ""}
         />
         <label htmlFor="title">Tiêu đề</label>
         <p>Thêm tối đa 5 tiêu đề</p>
         <input
           type="text"
-          onChange={(e) =>
-            setCampaign({
-              ...campaign,
-              title: e.target.value,
-            })
-          }
+          onChange={(e) => dispatch(createCampaign({ title: e.target.value }))}
           name="title"
           id="title"
-          value={campaign.title}
+          value={state.title}
           placeholder="Chat trên messenger"
-          className={campaign.title === "" ? "disabled" : ""}
+          className={state.title === "" ? "disabled" : ""}
         />
         <label htmlFor="desc">
           Mô tả - <span>không bắt buộc</span>
@@ -183,15 +147,10 @@ function Step2Page2(props) {
         <p>Thêm tối đa 5 mô tả</p>
         <input
           type="text"
-          onChange={(e) =>
-            setCampaign({
-              ...campaign,
-              desc: e.target.value,
-            })
-          }
+          onChange={(e) => dispatch(createCampaign({ desc: e.target.value }))}
           name="desc"
           id="desc"
-          value={campaign.desc}
+          value={state.desc}
           placeholder="Quảng cáo của bạn có mô tả gì không?"
         />
         <input

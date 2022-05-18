@@ -23,9 +23,6 @@ function TongHop(props) {
   }, []);
 
   const handleCreateNewCampaign = () => {
-    localStorage.setItem('stepCompleted2', JSON.stringify([]));
-    localStorage.setItem('campaign', JSON.stringify({}));
-    localStorage.setItem('step2', JSON.stringify(1));
     window.location.href = "/quan-ly-quang-cao/chien-dich-quang-cao";
   }
 
