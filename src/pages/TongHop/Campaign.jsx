@@ -1,7 +1,7 @@
-import { Switch } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import Status from "./Status";
+import * as HrvComponents from "@haravan/react-components";
 
 Campaign.propTypes = {
   currentItems: PropTypes.array.isRequired,
@@ -20,7 +20,7 @@ function Campaign(props) {
   return currentItems.map((item, index) => (
     <ul key={index} className="tr-element">
       <li>
-        <Switch defaultChecked />
+        <HrvComponents.Switch onChange={(checked) => console.log(checked)} />
       </li>
       <li>{item.name}</li>
       <li className="local-item">

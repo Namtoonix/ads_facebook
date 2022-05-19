@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import Select from "react-select";
 import React, { useEffect, useState } from "react";
 import campaignApi from "../../api/campaignApi";
 import lich from "../../assets/Icon-Facebook/lich.png";
@@ -13,6 +13,7 @@ StatisticsPage.propTypes = {};
 function StatisticsPage(props) {
   const [campaigns, setCampaigns] = useState([]);
   const [nameList, setNameList] = useState([]);
+  console.log(nameList);
   const [campaignSelect, setCampaignSelect] = useState("");
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function StatisticsPage(props) {
       campaigns.map((name, index) => {
         const data = {
           value: name?.name,
-          lable: name?.name,
+          label: name?.name,
         };
         nameList.push(data);
       });
@@ -50,7 +51,7 @@ function StatisticsPage(props) {
         <Graph1 />
         <div style={{ display: "flex" }}>
           <Graph2 />
-          <RankTable campaigns={campaigns}/>
+          <RankTable campaigns={campaigns} />
         </div>
       </div>
     );
@@ -62,7 +63,7 @@ function StatisticsPage(props) {
         <h3>Tổng quan</h3>
         <Select
           id="campaign-select"
-          onChange={(e) => setCampaignSelect(e)}
+          onChange={(e) => setCampaignSelect(e.value)}
           options={nameList}
         />
         <p style={{ backgroundImage: `url(${lich})` }}>
